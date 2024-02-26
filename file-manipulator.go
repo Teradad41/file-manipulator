@@ -8,8 +8,7 @@ import (
 	"strings"
 )
 
-type FileManipulator struct {
-}
+type FileManipulator struct {}
 
 func handleError(err error) {
 	if err != nil {

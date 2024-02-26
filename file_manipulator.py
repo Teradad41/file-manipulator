@@ -1,7 +1,7 @@
 import sys
 
 
-class FileManipulator(object):
+class FileManipulator:
     def __init__(self, input_file=None, output_file=None):
         self.input_file = input_file
         self.output_file = output_file
@@ -39,25 +39,28 @@ class FileManipulator(object):
 
 
 def main():
+    if len(sys.argv) < 4:
+        print("Usage: program <command> <inputFile> <arguments...>")
+        sys.exit(1)
+
     command = sys.argv[1]
     args = sys.argv[2:]
 
-    if command not in ('reverse', 'copy', 'duplicate', 'replace-string'):
-        print('Invalid command')
-        return
-
     file_manipulator = FileManipulator()
 
-    method_map = {
-        'reverse': file_manipulator.reverse,
-        'copy': file_manipulator.copy,
-        'duplicate': file_manipulator.duplicate,
-        'replace-string': file_manipulator.replace_string,
-    }
+    if command == 'reverse':
+        file_manipulator.reverse(*args)
+    elif command == 'copy':
+        file_manipulator.copy(*args)
+    elif command == 'duplicate':
+        file_manipulator.duplicate(*args)
+    elif command == 'replace-string':
+        file_manipulator.replace_string(*args)
+    else:
+        print("Invalid command")
+        sys.exit(1)
 
-    if command in method_map:
-        method_map[command](*args)
-
+    print("Operation completed successfully.")
 
 if __name__ == '__main__':
     main()
